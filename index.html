@@ -2,334 +2,342 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Artisan</title>
-    <style>
-        :root {
-          --primary: #f7941d;
-          --secondary: #7ecbd7;
-          --bg-wood: #e0d4b7;
-          --bg-card: #f3ede1;
-          --text-dark: #3c3c3c;
-          --error: red;
-          --success: #28a745;
-        }
-    
-        html, body {
-          margin: 0;
-          padding: 0;
-          height: 100%;
-          overflow-x: hidden;
-        }
-    
-        body {
-          font-family: Arial, sans-serif;
-          background-color: var(--bg-wood);
-          color: var(--text-dark);
-        }
-    
-        .main-fullscreen {
-          min-height: 100vh;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          padding: 20px;
-          background: linear-gradient(to bottom, #f1e6ce, #d9c9a3);
-          position: relative;
-          box-sizing: border-box;
-        }
-    
-        .main-logo {
-          width: 200px;
-          margin-bottom: 20px;
-        }
-    
-        .top-logo {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          width: 80px;
-          height: auto;
-        }
-    
-        .cards {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 20px;
-          margin-top: 30px;
-        }
-    
-        .card {
-          background-color: var(--bg-card);
-          padding: 20px;
-          border-radius: 10px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-          max-width: 300px;
-          text-align: left;
-          color: var(--text-dark);
-        }
-    
-        .card h3 {
-          color: var(--primary);
-          margin-top: 0;
-        }
-    
-        .btn {
-          display: inline-block;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 5px;
-          background-color: var(--secondary);
-          color: white;
-          cursor: pointer;
-          text-decoration: none;
-        }
-    
-        .btn:hover {
-          background-color: #5ab3bd;
-        }
-    
-        .modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.4);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 10;
-          display: none;
-        }
-    
-        .modal.active {
-          display: flex;
-        }
-    
-        .form-popup {
-          background: var(--bg-card);
-          color: var(--text-dark);
-          padding: 30px;
-          border-radius: 10px;
-          position: relative;
-          width: 100%;
-          max-width: 500px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-    
-        .btn-close {
-          position: absolute;
-          top: 10px;
-          right: 15px;
-          background: none;
-          border: none;
-          font-size: 20px;
-          cursor: pointer;
-          color: gray;
-        }
-    
-        .btn-close:hover {
-          color: black;
-        }
-    
-        input,
-        textarea {
-          padding: 10px;
-          margin: 10px 0;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          background-color: #fffaf2;
-        }
-    
-        .error {
-          border-color: var(--error);
-        }
-    
-        .error-message {
-          color: var(--error);
-          font-size: 14px;
-          display: none;
-        }
-    
-        .success-message {
-          position: fixed;
-          top: 20px;
-          left: 50%;
-          transform: translateX(-50%);
-          background-color: var(--success);
-          color: white;
-          padding: 12px 20px;
-          border-radius: 5px;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-          z-index: 9999;
-          display: none;
-        }
-    
-        .submit-error-message {
-          color: var(--error);
-          margin-top: 10px;
-          font-weight: bold;
-          display: none;
-        }
-    
-        .error-label {
-          color: var(--error);
-        }
-    
-        @media screen and (max-width: 600px) {
-          .main-fullscreen {
-            padding: 10px;
-            justify-content: flex-start;
-          }
-    
-          .top-logo {
-            width: 60px;
-            top: 10px;
-            right: 10px;
-          }
-    
-          .main-logo {
-            width: 150px;
-            margin-top: 60px;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      <div class="success-message" id="success-message">
-        Formulaire envoyé avec succès !
-      </div>
-    
-      <div class="main-fullscreen">
-        <img src="assets/logo2.png" class="top-logo" alt="Deuxième logo" />
-        <img src="assets/logo.png" class="main-logo" alt="Logo Pro Artisan" />
-        <h1 style="color: var(--secondary)">Bienvenue sur Pro Artisan</h1>
-        <p>
-          Nous connectons les meilleurs artisans avec leurs clients.
-        </p>
-    
-        <div class="cards">
-          <div class="card">
-            <h3>Notre mission</h3>
-            <p>
-              Faciliter la mise en relation entre artisans qualifiés et clients en
-              toute confiance.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Qualité garantie</h3>
-            <p>
-              Chaque professionnel s'engage à respecter les normes et à fournir un
-              travail soigné.
-            </p>
-          </div>
-          <div class="card">
-            <h3>Communauté dynamique</h3>
-            <p>
-              Rejoignez un réseau actif de professionnels et d'experts passionnés.
-            </p>
-          </div>
-        </div>
-    
-        <button class="btn" style="margin-top: 40px" onclick="showForm()">
-          Accéder au formulaire
-        </button>
-      </div>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pro Artisan</title>
+  <style>
+    :root {
+      --primary: #f7941d;
+      --secondary: #7ecbd7;
+      --bg-wood: #e0d4b7;
+      --bg-card: #f3ede1;
+      --text-dark: #3c3c3c;
+      --error: red;
+      --success: #28a745;
+    }
 
-    <div class="modal" id="formModal">
-        <div class="form-popup">
-            <button class="btn-close" onclick="hideForm()">&times;</button>
-            <h2 style="color: var(--primary);">Formulaire d'inscription</h2>
-            <form id="artisanForm" style="display: flex; flex-direction: column;">
-                <input type="text" name="prenom" placeholder="Prénom" required>
-                <input type="text" name="nom" placeholder="Nom" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="metier" placeholder="Métier" required>
-                <textarea name="experience" placeholder="Votre expérience professionnelle" required></textarea>
-                <textarea name="zone" placeholder="Zone géographique d'intervention" required></textarea>
-                <textarea name="specialites" placeholder="Spécialités (facultatif)"></textarea>
-                <label id="normes-label" style="display: flex; align-items: center; gap: 10px;">
-                    <input type="checkbox" name="normes" required> J'accepte que mes données soient collectées et utilisées pour le traitement de ma demande.
-                </label>
-                <p class="error-message" id="error-message">Veuillez remplir tous les champs obligatoires et accepter
-                    les conditions.</p>
-                <p class="submit-error-message" id="submit-error">Une erreur est survenue lors de l'envoi. Veuillez
-                    réessayer.</p>
-                <button class="btn" type="submit" style="margin-top: 10px;">Envoyer</button>
-            </form>
-        </div>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-wood);
+      color: var(--text-dark);
+    }
+
+    .main-fullscreen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to bottom, #f1e6ce, #d9c9a3);
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .main-logo {
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .top-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 80px;
+      height: auto;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      max-width: 300px;
+      text-align: left;
+      color: var(--text-dark);
+    }
+
+    .card h3 {
+      color: var(--primary);
+      margin-top: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--secondary);
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #5ab3bd;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      display: none;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .form-popup {
+      background: var(--bg-card);
+      color: var(--text-dark);
+      padding: 30px;
+      border-radius: 10px;
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: gray;
+    }
+
+    .btn-close:hover {
+      color: black;
+    }
+
+    input,
+    textarea {
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fffaf2;
+    }
+
+    .error {
+      border-color: var(--error);
+    }
+
+    .error-message {
+      color: var(--error);
+      font-size: 14px;
+      display: none;
+    }
+
+    .success-message {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--success);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      display: none;
+    }
+
+    .submit-error-message {
+      color: var(--error);
+      margin-top: 10px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .error-label {
+      color: var(--error);
+    }
+
+    @media screen and (max-width: 600px) {
+      .main-fullscreen {
+        padding: 10px;
+        justify-content: flex-start;
+      }
+
+      .top-logo {
+        width: 60px;
+        top: 10px;
+        right: 10px;
+      }
+
+      .main-logo {
+        width: 150px;
+        margin-top: 60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="success-message" id="success-message">
+    Formulaire envoyé avec succès !
+  </div>
+
+  <div class="main-fullscreen">
+    <img src="assets/logo2.png" class="top-logo" alt="Deuxième logo" />
+    <img src="assets/logo.png" class="main-logo" alt="Logo Pro Artisan" />
+    <h1 style="color: var(--secondary)">Bienvenue sur Pro Artisan</h1>
+    <p>
+      Nous connectons les meilleurs artisans avec leurs clients.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Notre mission</h3>
+        <p>
+          Faciliter la mise en relation entre artisans qualifiés et clients en
+          toute confiance.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Qualité garantie</h3>
+        <p>
+          Chaque professionnel s'engage à respecter les normes et à fournir un
+          travail soigné.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Communauté dynamique</h3>
+        <p>
+          Rejoignez un réseau actif de professionnels et d'experts passionnés.
+        </p>
+      </div>
     </div>
 
-    <script>
-        function showForm() {
-            document.getElementById('formModal').classList.add('active');
+    <button class="btn" style="margin-top: 40px; margin-bottom: 40px;" onclick="showForm()">
+      Accéder au formulaire
+    </button>
+  </div>
+
+  <div class="modal" id="formModal">
+    <div class="form-popup">
+      <button class="btn-close" onclick="hideForm()">&times;</button>
+      <h2 style="color: var(--primary);">Formulaire d'inscription</h2>
+      <form id="artisanForm" style="display: flex; flex-direction: column;">
+        <input type="text" name="prenom" placeholder="Prénom" required>
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="metier" placeholder="Métier" required>
+        <textarea name="experience" placeholder="Votre expérience professionnelle" required></textarea>
+        <textarea name="zone" placeholder="Zone géographique d'intervention" required></textarea>
+        <textarea name="specialites" placeholder="Spécialités (facultatif)"></textarea>
+        <label id="normes-label" style="display: flex; align-items: center; gap: 10px;">
+          <input type="checkbox" name="normes" required> J'accepte que mes données soient collectées et utilisées pour
+          le traitement de ma demande.
+        </label>
+        <p class="error-message" id="error-message">Veuillez remplir tous les champs obligatoires et accepter
+          les conditions.</p>
+        <p class="submit-error-message" id="submit-error">Une erreur est survenue lors de l'envoi. Veuillez
+          réessayer.</p>
+        <button class="btn" type="submit" style="margin-top: 10px;">Envoyer</button>
+      </form>
+    </div>
+  </div>
+
+  <footer
+    style="background-color: var(--bg-card); padding: 20px; text-align: center; font-size: 14px; color: var(--text-dark); margin-top: auto;">
+    <p>© 2024 Pro Artisan — Toutes les données sont traitées dans le respect du <strong>RGPD</strong>.</p>
+  </footer>
+
+  <script>
+    function showForm() {
+      document.getElementById('formModal').classList.add('active');
+    }
+
+    function hideForm() {
+      document.getElementById('formModal').classList.remove('active');
+    }
+
+    document.getElementById('artisanForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      let isValid = true;
+      const form = event.target;
+      const inputs = form.querySelectorAll('input[required], textarea[required]');
+      const checkbox = form.querySelector('input[type="checkbox"]');
+      const errorMessage = document.getElementById('error-message');
+      const submitError = document.getElementById('submit-error');
+      const label = document.getElementById('normes-label');
+
+      errorMessage.style.display = 'none';
+      submitError.style.display = 'none';
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          isValid = false;
+        } else {
+          input.classList.remove('error');
         }
+      });
 
-        function hideForm() {
-            document.getElementById('formModal').classList.remove('active');
-        }
+      if (!checkbox.checked) {
+        label.classList.add('error-label');
+        isValid = false;
+      } else {
+        label.classList.remove('error-label');
+      }
 
-        document.getElementById('artisanForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            let isValid = true;
-            const form = event.target;
-            const inputs = form.querySelectorAll('input[required], textarea[required]');
-            const checkbox = form.querySelector('input[type="checkbox"]');
-            const errorMessage = document.getElementById('error-message');
-            const submitError = document.getElementById('submit-error');
-            const label = document.getElementById('normes-label');
+      if (!isValid) {
+        errorMessage.style.display = 'block';
+        return;
+      }
 
-            errorMessage.style.display = 'none';
-            submitError.style.display = 'none';
-
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.classList.add('error');
-                    isValid = false;
-                } else {
-                    input.classList.remove('error');
-                }
-            });
-
-            if (!checkbox.checked) {
-                label.classList.add('error-label');
-                isValid = false;
-            } else {
-                label.classList.remove('error-label');
-            }
-
-            if (!isValid) {
-                errorMessage.style.display = 'block';
-                return;
-            }
-
-            fetch('https://formspree.io/f/xanqvydw', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(Object.fromEntries(new FormData(form)))
-            })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById('success-message').style.display = 'block';
-                        hideForm();
-                        form.reset();
-                        setTimeout(() => {
-                            document.getElementById('success-message').style.display = 'none';
-                        }, 3000);
-                    } else {
-                        submitError.style.display = 'block';
-                    }
-                })
-                .catch(() => {
-                    submitError.style.display = 'block';
-                });
+      fetch('https://formspree.io/f/xanqvydw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+      })
+        .then(response => {
+          if (response.ok) {
+            document.getElementById('success-message').style.display = 'block';
+            hideForm();
+            form.reset();
+            setTimeout(() => {
+              document.getElementById('success-message').style.display = 'none';
+            }, 3000);
+          } else {
+            submitError.style.display = 'block';
+          }
+        })
+        .catch(() => {
+          submitError.style.display = 'block';
         });
-    </script>
+    });
+  </script>
 </body>
 
 </html>
